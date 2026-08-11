@@ -1,0 +1,20 @@
+[project]
+name = "media-scraper"
+version = "1.0.0"
+description = "Kusonime and Driverays media scraper"
+requires-python = ">=3.10"
+dependencies = [
+    "flet==0.86.5",
+    "requests>=2.32.0",
+    "beautifulsoup4>=4.13.0",
+    "lxml>=6.0.0"
+]
+
+[tool.flet]
+org = "com.example"
+product = "Media Scraper"
+company = "Media Scraper"
+copyright = "Copyright © 2026"
+
+[tool.flet.windows]
+icon = "assets/icon.jpg"

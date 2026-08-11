@@ -1,0 +1,4 @@
+flet>=0.80.0
+requests>=2.32.0
+beautifulsoup4>=4.13.0
+lxml>=6.0.0
