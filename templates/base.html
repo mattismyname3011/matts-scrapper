@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ title }}</title>
+
+    <meta name="description" content="{{ description }}" />
+
+    <meta name="robots" content="index, follow" />
+
+    <link
+      rel="canonical"
+      href="{{ request.base_url }}{{ canonical.lstrip('/') }}"
+    />
+
+    <!-- Open Graph -->
+
+    <meta property="og:type" content="website" />
+
+    <meta property="og:title" content="{{ title }}" />
+
+    <meta property="og:description" content="{{ description }}" />
+
+    <meta
+      property="og:url"
+      content="{{ request.base_url }}{{ canonical.lstrip('/') }}"
+    />
+
+    <meta property="og:site_name" content="Media Scraper" />
+
+    <!-- Twitter -->
+
+    <meta name="twitter:card" content="summary" />
+
+    <meta name="twitter:title" content="{{ title }}" />
+
+    <meta name="twitter:description" content="{{ description }}" />
+
+    <link rel="stylesheet" href="/static/style.css" />
+
+    {% block head %}{% endblock %}
+  </head>
+
+  <body>
+    <div class="app">
+      <header class="site-header">
+        <a href="/" class="logo">
+          <span class="logo-icon"> ↓ </span>
+
+          <span> Media Scraper </span>
+        </a>
+
+        <nav>
+          <a href="/"> Home </a>
+
+          <a href="/kusonime"> Kusonime </a>
+
+          <a href="/driverays"> Driverays </a>
+
+          <a href="/how-to-use"> How To Use </a>
+
+          <a href="/about"> About </a>
+        </nav>
+      </header>
+
+      <main>{% block content %} {% endblock %}</main>
+
+      <footer>
+        <div>© 2026 Media Scraper</div>
+
+        <div class="footer-links">
+          <a href="/about"> About </a>
+
+          <a href="/how-to-use"> How To Use </a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

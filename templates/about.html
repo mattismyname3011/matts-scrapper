@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="article">
+  <div class="hero-badge">ABOUT</div>
+
+  <h1>About Media Scraper</h1>
+
+  <p class="lead">
+    A lightweight tool for processing publicly exposed download links from
+    supported pages.
+  </p>
+
+  <div class="article-card">
+    <h2>What is Media Scraper?</h2>
+
+    <p>
+      Media Scraper is a web-based utility that accepts a supported page URL and
+      extracts publicly exposed download links from that page.
+    </p>
+  </div>
+
+  <div class="article-card">
+    <h2>Direct URL approach</h2>
+
+    <p>
+      Instead of searching an entire website, Media Scraper works with a URL
+      supplied by the user. This keeps the process simple and minimizes
+      unnecessary requests.
+    </p>
+  </div>
+
+  <div class="article-card warning-card">
+    <h2>Responsible use</h2>
+
+    <p>
+      The application does not attempt to bypass authentication, CAPTCHA, DRM,
+      paywalls, or other access controls.
+    </p>
+
+    <p>
+      Users are responsible for complying with applicable laws and the terms of
+      the websites they access.
+    </p>
+  </div>
+</section>
+
+{% endblock %}

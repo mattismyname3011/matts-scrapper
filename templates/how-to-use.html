@@ -1,0 +1,87 @@
+{% extends "base.html" %} {% block head %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to use Media Scraper",
+    "description": "{{ description }}",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Open a supported page"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Copy the URL"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Paste the URL"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Scrape the page"
+      }
+    ]
+  }
+</script>
+
+{% endblock %} {% block content %}
+
+<section class="article">
+  <div class="hero-badge">GUIDE</div>
+
+  <h1>How to Use Media Scraper</h1>
+
+  <p class="lead">
+    Learn how to extract publicly exposed download links from supported pages.
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+
+      <div>
+        <h2>Open a supported page</h2>
+
+        <p>Open the media page you want to process on a supported website.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+
+      <div>
+        <h2>Copy the URL</h2>
+
+        <p>Copy the address of the page from your browser.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+
+      <div>
+        <h2>Paste the URL</h2>
+
+        <p>Return to Media Scraper and paste the URL into the URL field.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+
+      <div>
+        <h2>Click Scrape</h2>
+
+        <p>
+          The application will process the page and display supported publicly
+          exposed links.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

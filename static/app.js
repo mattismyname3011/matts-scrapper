@@ -1,88 +1,56 @@
-const sourceSelect =
-    document.getElementById("source");
+const sourceSelect = document.getElementById("source");
 
-const urlInput =
-    document.getElementById("url");
+const urlInput = document.getElementById("url");
 
-const scrapeButton =
-    document.getElementById("scrapeButton");
+const scrapeButton = document.getElementById("scrapeButton");
 
-const buttonIcon =
-    document.getElementById("buttonIcon");
+const buttonIcon = document.getElementById("buttonIcon");
 
-const buttonText =
-    document.getElementById("buttonText");
+const buttonText = document.getElementById("buttonText");
 
-const statusElement =
-    document.getElementById("status");
+const statusElement = document.getElementById("status");
 
-const resultsElement =
-    document.getElementById("results");
+const resultsElement = document.getElementById("results");
 
-const toast =
-    document.getElementById("toast");
-
+const toast = document.getElementById("toast");
 
 /* ============================================================
    STATUS
    ============================================================ */
 
-function setStatus(
-    message,
-    type = "loading"
-) {
+function setStatus(message, type = "loading") {
+  statusElement.textContent = message;
 
-    statusElement.textContent =
-        message;
-
-    statusElement.className =
-        `status ${type}`;
+  statusElement.className = `status ${type}`;
 }
-
 
 /* ============================================================
    CLEAR STATUS
    ============================================================ */
 
 function clearStatus() {
+  statusElement.textContent = "";
 
-    statusElement.textContent =
-        "";
-
-    statusElement.className =
-        "status hidden";
+  statusElement.className = "status hidden";
 }
-
 
 /* ============================================================
    LOADING
    ============================================================ */
 
-function setLoading(
-    loading
-) {
+function setLoading(loading) {
+  scrapeButton.disabled = loading;
 
-    scrapeButton.disabled =
-        loading;
+  if (loading) {
+    buttonIcon.textContent = "⏳";
 
-    if (loading) {
+    buttonText.textContent = "Scraping...";
+  } else {
+    buttonIcon.textContent = "↗";
 
-        buttonIcon.textContent =
-            "⏳";
-
-        buttonText.textContent =
-            "Scraping...";
-
-    } else {
-
-        buttonIcon.textContent =
-            "↗";
-
-        buttonText.textContent =
-            "Scrape";
-    }
+    buttonText.textContent = "Scrape";
+  }
 }
-
 
 /* ============================================================
    TOAST
@@ -91,200 +59,120 @@ function setLoading(
 let toastTimeout;
 
 function showToast(message) {
+  toast.textContent = message;
 
-    toast.textContent =
-        message;
+  toast.classList.add("show");
 
-    toast.classList.add(
-        "show"
-    );
+  clearTimeout(toastTimeout);
 
-    clearTimeout(
-        toastTimeout
-    );
-
-    toastTimeout =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            1800
-        );
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1800);
 }
-
 
 /* ============================================================
    COPY
    ============================================================ */
 
-async function copyLink(
-    url
-) {
+async function copyLink(url) {
+  try {
+    await navigator.clipboard.writeText(url);
 
-    try {
+    showToast("Link copied!");
+  } catch (error) {
+    /*
+     * Fallback for browsers where
+     * navigator.clipboard isn't available.
+     */
 
-        await navigator.clipboard.writeText(
-            url
-        );
+    const textarea = document.createElement("textarea");
 
-        showToast(
-            "Link copied!"
-        );
+    textarea.value = url;
 
-    } catch (error) {
+    textarea.style.position = "fixed";
 
-        /*
-         * Fallback for browsers where
-         * navigator.clipboard isn't available.
-         */
+    textarea.style.opacity = "0";
 
-        const textarea =
-            document.createElement(
-                "textarea"
-            );
+    document.body.appendChild(textarea);
 
-        textarea.value =
-            url;
+    textarea.select();
 
-        textarea.style.position =
-            "fixed";
+    document.execCommand("copy");
 
-        textarea.style.opacity =
-            "0";
+    textarea.remove();
 
-        document.body.appendChild(
-            textarea
-        );
-
-        textarea.select();
-
-        document.execCommand(
-            "copy"
-        );
-
-        textarea.remove();
-
-        showToast(
-            "Link copied!"
-        );
-    }
+    showToast("Link copied!");
+  }
 }
-
 
 /* ============================================================
    OPEN
    ============================================================ */
 
-function openLink(
-    url
-) {
-
-    window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-    );
+function openLink(url) {
+  window.open(url, "_blank", "noopener,noreferrer");
 }
-
 
 /* ============================================================
    ESCAPE HTML
    ============================================================ */
 
-function escapeHtml(
-    value
-) {
+function escapeHtml(value) {
+  const div = document.createElement("div");
 
-    const div =
-        document.createElement(
-            "div"
-        );
+  div.textContent = value ?? "";
 
-    div.textContent =
-        value ?? "";
-
-    return div.innerHTML;
+  return div.innerHTML;
 }
-
 
 /* ============================================================
    HOST ICON
    ============================================================ */
 
-function getHostIcon(
-    host
-) {
+function getHostIcon(host) {
+  const icons = {
+    Pixeldrain: "☁",
 
-    const icons = {
+    Terabox: "☁",
 
-        "Pixeldrain": "☁",
+    "Google Drive": "☁",
 
-        "Terabox": "☁",
+    Mega: "☁",
 
-        "Google Drive": "☁",
+    Acefile: "↗",
 
-        "Mega": "☁",
+    Hxfile: "↗",
+  };
 
-        "Acefile": "↗",
-
-        "Hxfile": "↗"
-    };
-
-    return icons[host] || "🔗";
+  return icons[host] || "🔗";
 }
-
 
 /* ============================================================
    QUALITY SORT
    ============================================================ */
 
-function qualityNumber(
-    value
-) {
+function qualityNumber(value) {
+  const match = String(value).match(/\d+/);
 
-    const match =
-        String(value).match(
-            /\d+/
-        );
-
-    return match
-        ? Number(match[0])
-        : 0;
+  return match ? Number(match[0]) : 0;
 }
-
 
 /* ============================================================
    RENDER RESULTS
    ============================================================ */
 
-function renderResults(
-    data
-) {
+function renderResults(data) {
+  resultsElement.innerHTML = "";
 
-    resultsElement.innerHTML =
-        "";
+  const title = data.title || "Unknown";
 
-    const title =
-        data.title ||
-        "Unknown";
+  const source = data.source || "Unknown";
 
-    const source =
-        data.source ||
-        "Unknown";
+  const titleCard = document.createElement("div");
 
-    const titleCard =
-        document.createElement(
-            "div"
-        );
+  titleCard.className = "title-card";
 
-    titleCard.className =
-        "title-card";
-
-    titleCard.innerHTML = `
+  titleCard.innerHTML = `
         <h2>
             ${escapeHtml(title)}
         </h2>
@@ -294,37 +182,20 @@ function renderResults(
         </div>
     `;
 
-    resultsElement.appendChild(
-        titleCard
-    );
+  resultsElement.appendChild(titleCard);
 
+  const downloads = data.downloads || {};
 
-    const downloads =
-        data.downloads || {};
+  const qualities = Object.keys(downloads).sort(
+    (a, b) => qualityNumber(b) - qualityNumber(a),
+  );
 
-    const qualities =
-        Object.keys(downloads)
-            .sort(
-                (a, b) =>
-                    qualityNumber(b)
-                    -
-                    qualityNumber(a)
-            );
+  if (qualities.length === 0) {
+    const empty = document.createElement("div");
 
+    empty.className = "empty-state";
 
-    if (
-        qualities.length === 0
-    ) {
-
-        const empty =
-            document.createElement(
-                "div"
-            );
-
-        empty.className =
-            "empty-state";
-
-        empty.innerHTML = `
+    empty.innerHTML = `
             <div class="empty-icon">
                 🔗
             </div>
@@ -339,80 +210,44 @@ function renderResults(
             </p>
         `;
 
-        resultsElement.appendChild(
-            empty
-        );
+    resultsElement.appendChild(empty);
 
-        return;
-    }
+    return;
+  }
 
+  qualities.forEach((quality) => {
+    const links = downloads[quality] || [];
 
-    qualities.forEach(
-        quality => {
+    const section = document.createElement("section");
 
-            const links =
-                downloads[quality] || [];
+    section.className = "quality-section";
 
+    const header = document.createElement("div");
 
-            const section =
-                document.createElement(
-                    "section"
-                );
+    header.className = "quality-header";
 
-            section.className =
-                "quality-section";
-
-
-            const header =
-                document.createElement(
-                    "div"
-                );
-
-            header.className =
-                "quality-header";
-
-            header.innerHTML = `
+    header.innerHTML = `
                 <span class="quality-name">
-                    ${escapeHtml(
-                        String(quality)
-                            .toUpperCase()
-                    )}
+                    ${escapeHtml(String(quality).toUpperCase())}
                 </span>
 
                 <span class="host-count">
-                    ${links.length} host${
-                        links.length === 1
-                            ? ""
-                            : "s"
-                    }
+                    ${links.length} host${links.length === 1 ? "" : "s"}
                 </span>
             `;
 
-            section.appendChild(
-                header
-            );
+    section.appendChild(header);
 
+    links.forEach((item) => {
+      const host = item.host || "Unknown";
 
-            links.forEach(
-                item => {
+      const url = item.url || "";
 
-                    const host =
-                        item.host ||
-                        "Unknown";
+      const card = document.createElement("div");
 
-                    const url =
-                        item.url ||
-                        "";
+      card.className = "link-card";
 
-                    const card =
-                        document.createElement(
-                            "div"
-                        );
-
-                    card.className =
-                        "link-card";
-
-                    card.innerHTML = `
+      card.innerHTML = `
                         <div class="host-icon">
                             ${getHostIcon(host)}
                         </div>
@@ -451,53 +286,27 @@ function renderResults(
                         </div>
                     `;
 
+      card
+        .querySelector(".copy-button")
+        .addEventListener("click", () => copyLink(url));
 
-                    card
-                        .querySelector(
-                            ".copy-button"
-                        )
-                        .addEventListener(
-                            "click",
-                            () =>
-                                copyLink(url)
-                        );
+      card
+        .querySelector(".open-button")
+        .addEventListener("click", () => openLink(url));
 
+      section.appendChild(card);
+    });
 
-                    card
-                        .querySelector(
-                            ".open-button"
-                        )
-                        .addEventListener(
-                            "click",
-                            () =>
-                                openLink(url)
-                        );
-
-
-                    section.appendChild(
-                        card
-                    );
-                }
-            );
-
-
-            resultsElement.appendChild(
-                section
-            );
-        }
-    );
+    resultsElement.appendChild(section);
+  });
 }
-
 
 /* ============================================================
    ERROR
    ============================================================ */
 
-function renderError(
-    message
-) {
-
-    resultsElement.innerHTML = `
+function renderError(message) {
+  resultsElement.innerHTML = `
         <div class="error-card">
 
             <div class="error-icon">
@@ -516,172 +325,91 @@ function renderError(
     `;
 }
 
-
 /* ============================================================
    SCRAPE
    ============================================================ */
 
 async function scrape() {
+  const source = sourceSelect.value;
 
-    const source =
-        sourceSelect.value;
+  const url = urlInput.value.trim();
 
-    const url =
-        urlInput.value.trim();
+  if (!url) {
+    setStatus("Please enter a page URL.", "error");
 
+    urlInput.focus();
 
-    if (!url) {
+    return;
+  }
 
-        setStatus(
-            "Please enter a page URL.",
-            "error"
-        );
+  try {
+    new URL(url);
+  } catch {
+    setStatus("Please enter a valid URL.", "error");
 
-        urlInput.focus();
+    urlInput.focus();
 
-        return;
+    return;
+  }
+
+  setLoading(true);
+
+  setStatus(`Scraping ${source}...`, "loading");
+
+  try {
+    const response = await fetch("/api/scrape", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        source,
+        url,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.detail || "Scraping failed.");
     }
 
-
-    try {
-
-        new URL(url);
-
-    } catch {
-
-        setStatus(
-            "Please enter a valid URL.",
-            "error"
-        );
-
-        urlInput.focus();
-
-        return;
+    if (!result.success) {
+      throw new Error("Scraping failed.");
     }
 
+    renderResults(result.data);
 
-    setLoading(
-        true
+    const downloads = result.data.downloads || {};
+
+    const count = Object.values(downloads).reduce(
+      (total, links) => total + links.length,
+      0,
     );
 
     setStatus(
-        `Scraping ${source}...`,
-        "loading"
+      `Found ${count} download link${count === 1 ? "" : "s"}.`,
+      "success",
     );
+  } catch (error) {
+    renderError(error.message);
 
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/scrape",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        source,
-                        url
-                    })
-                }
-            );
-
-
-        const result =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                result.detail ||
-                "Scraping failed."
-            );
-        }
-
-
-        if (!result.success) {
-
-            throw new Error(
-                "Scraping failed."
-            );
-        }
-
-
-        renderResults(
-            result.data
-        );
-
-
-        const downloads =
-            result.data.downloads ||
-            {};
-
-        const count =
-            Object.values(
-                downloads
-            )
-            .reduce(
-                (total, links) =>
-                    total +
-                    links.length,
-                0
-            );
-
-
-        setStatus(
-            `Found ${count} download link${
-                count === 1
-                    ? ""
-                    : "s"
-            }.`,
-            "success"
-        );
-
-
-    } catch (error) {
-
-        renderError(
-            error.message
-        );
-
-        setStatus(
-            error.message,
-            "error"
-        );
-
-    } finally {
-
-        setLoading(
-            false
-        );
-    }
+    setStatus(error.message, "error");
+  } finally {
+    setLoading(false);
+  }
 }
-
 
 /* ============================================================
    EVENTS
    ============================================================ */
 
-scrapeButton.addEventListener(
-    "click",
-    scrape
-);
+scrapeButton.addEventListener("click", scrape);
 
-
-urlInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            scrape();
-        }
-    }
-);
+urlInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    scrape();
+  }
+});

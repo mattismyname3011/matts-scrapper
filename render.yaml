@@ -1,7 +1,10 @@
 services:
   - type: web
+
     name: media-scraper
+
     runtime: python
+
     plan: free
 
     buildCommand: pip install -r requirements.txt

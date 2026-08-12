@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block head %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Kusonime Download Link Scraper",
+    "description": "{{ description }}"
+  }
+</script>
+
+{% endblock %} {% block content %}
+
+<section class="article">
+  <div class="hero-badge">KUSONIME TOOL</div>
+
+  <h1>Kusonime Download Link Scraper</h1>
+
+  <p class="lead">
+    Extract publicly exposed download links from a Kusonime page using its
+    direct URL.
+  </p>
+
+  <div class="article-card">
+    <h2>How it works</h2>
+
+    <ol>
+      <li>Open the Kusonime page you want to process.</li>
+
+      <li>Copy its URL.</li>
+
+      <li>Paste the URL into Media Scraper.</li>
+
+      <li>Select Kusonime as the source.</li>
+
+      <li>Click Scrape.</li>
+    </ol>
+  </div>
+
+  <div class="article-card">
+    <h2>Why direct URLs?</h2>
+
+    <p>
+      Media Scraper intentionally uses direct page URLs instead of performing a
+      site-wide search. This reduces unnecessary requests and makes the scraping
+      workflow faster.
+    </p>
+  </div>
+
+  <div class="cta-card">
+    <h2>Ready to try it?</h2>
+
+    <p>Go back to the scraper and paste your Kusonime page URL.</p>
+
+    <a href="/" class="primary-button link-button"> Open Scraper → </a>
+  </div>
+</section>
+
+{% endblock %}

@@ -15,7 +15,7 @@ build/
 dist/
 *.egg-info/
 
-# FastAPI / Uvicorn
+# Logs
 *.log
 
 # Environment

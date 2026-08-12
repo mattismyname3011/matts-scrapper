@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block head %}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Driverays Download Link Scraper",
+    "description": "{{ description }}"
+  }
+</script>
+
+{% endblock %} {% block content %}
+
+<section class="article">
+  <div class="hero-badge">DRIVERAYS TOOL</div>
+
+  <h1>Driverays Download Link Scraper</h1>
+
+  <p class="lead">
+    Extract publicly exposed download links from a Driverays page using its
+    direct URL.
+  </p>
+
+  <div class="article-card">
+    <h2>How to use</h2>
+
+    <ol>
+      <li>Open the Driverays page.</li>
+
+      <li>Copy the page URL.</li>
+
+      <li>Paste it into Media Scraper.</li>
+
+      <li>Select Driverays.</li>
+
+      <li>Click Scrape.</li>
+    </ol>
+  </div>
+
+  <div class="article-card">
+    <h2>Direct URL scraping</h2>
+
+    <p>
+      This tool doesn't search Driverays for you. You provide the page URL,
+      allowing the scraper to process only the page you need.
+    </p>
+  </div>
+
+  <div class="cta-card">
+    <h2>Start scraping</h2>
+
+    <p>Paste a Driverays page URL into the scraper.</p>
+
+    <a href="/" class="primary-button link-button"> Open Scraper → </a>
+  </div>
+</section>
+
+{% endblock %}
