@@ -5,31 +5,31 @@
 >
 
     <url>
-        <loc>http://127.0.0.1:8000/</loc>
+        <loc>https://matts-scrapper.onrender.com/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>http://127.0.0.1:8000/kusonime</loc>
+        <loc>https://matts-scrapper.onrender.com/kusonime</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>http://127.0.0.1:8000/driverays</loc>
+        <loc>https://matts-scrapper.onrender.com/driverays</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>http://127.0.0.1:8000/how-to-use</loc>
+        <loc>https://matts-scrapper.onrender.com/how-to-use</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
 
     <url>
-        <loc>http://127.0.0.1:8000/about</loc>
+        <loc>https://matts-scrapper.onrender.com/about</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>

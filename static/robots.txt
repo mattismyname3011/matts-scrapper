@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /api/
 
-Sitemap: http://127.0.0.1:8000/sitemap.xml
+Sitemap: https://matts-scrapper.onrender.com/sitemap.xml
