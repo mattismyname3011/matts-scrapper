@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Media Scraper</title>
+
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand-icon">↓</div>
+
+        <div>
+          <h1>Media Scraper</h1>
+
+          <p>Extract publicly exposed download links</p>
+        </div>
+      </header>
+
+      <main>
+        <section class="search-panel">
+          <div class="field-group">
+            <label for="source"> Source </label>
+
+            <select id="source">
+              <option value="kusonime">Kusonime</option>
+
+              <option value="driverays">Driverays</option>
+            </select>
+          </div>
+
+          <div class="field-group url-field">
+            <label for="url"> Page URL </label>
+
+            <input
+              id="url"
+              type="url"
+              autocomplete="off"
+              placeholder="Paste the media page URL..."
+            />
+          </div>
+
+          <button id="scrapeButton" class="scrape-button">
+            <span id="buttonIcon"> ↗ </span>
+
+            <span id="buttonText"> Scrape </span>
+          </button>
+        </section>
+
+        <div id="status" class="status hidden"></div>
+
+        <section id="results" class="results">
+          <div class="empty-state">
+            <div class="empty-icon">🔗</div>
+
+            <h2>Ready to scrape</h2>
+
+            <p>Paste a Kusonime or Driverays page URL above to get started.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span> Media Scraper </span>
+
+        <span> • </span>
+
+        <span> Direct URL mode </span>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
